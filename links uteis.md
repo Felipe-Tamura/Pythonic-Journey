@@ -1,0 +1,1 @@
+Tratamento de string: https://algoritmosempython.com.br/cursos/programacao-python/strings/
