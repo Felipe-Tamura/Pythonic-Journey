@@ -1,2 +1,2 @@
-Tratamento de string: https://algoritmosempython.com.br/cursos/programacao-python/strings/
-Compreensão de lista em Python: https://www.pythonforbeginners.com/basics/list-comprehensions-in-python
+<a href="https://algoritmosempython.com.br/cursos/programacao-python/strings/" target="_blank" rel="nofollow">Tratamento de string</a> </br>
+<a href="https://www.pythonforbeginners.com/basics/list-comprehensions-in-python" target="_blank" rel="nofollow">Compreensão de lista em Python</a> </br>
