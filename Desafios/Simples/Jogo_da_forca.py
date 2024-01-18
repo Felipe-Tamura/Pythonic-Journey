@@ -2,6 +2,15 @@ import pandas as pd
 import random as rnd
 import os
 
+def limparTela():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def palavra_aleatoria():
+    palavras_tabela = pd.Series(['Sao paulo', 'Campinas', 'Osasco', 'Pinheiros', 'Cotia'])
+    return rnd.choice(palavras_tabela)
+
+limparTela()
+
 def menu():
     print('_'*50,'\nEscolha uma das opções','\n1. Jogar', '\n2. Sair')
     escolha = int(input('r: '))
@@ -13,15 +22,6 @@ def menu():
         case _ as x:
             print(f'O valor {x} não é valido, por favor escolha de 1 a 2')
             menu()
-
-def palavra_aleatoria():
-    palavras_tabela = pd.Series(['Sao paulo', 'Campinas', 'Osasco', 'Pinheiros', 'Cotia'])
-    return rnd.choice(palavras_tabela)
-
-def limparTela():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-limparTela()
 
 def jogo():
     
