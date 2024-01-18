@@ -20,16 +20,17 @@ def jogo():
     engine.limparTela()
     vidas = 5
     palavra_escolhida = [engine.palavra_aleatoria()]
+    letra_escolhida = []
     print(palavra_escolhida)
-    
+        
     while vidas > 0:
         print(' ' * 65, f'Vidas: {vidas}')
         
-        letra_escolhida = []
         letra_escolhida.append(input('Letra: '))
+        print(letra_escolhida)
 
-        for i in palavra_escolhida:
-            if letra_escolhida[::] == i[1]:
+        for i in palavra_escolhida.lower():
+            if i in letra_escolhida:
                 print('Acertou')
             else:
                 vidas -= 1
