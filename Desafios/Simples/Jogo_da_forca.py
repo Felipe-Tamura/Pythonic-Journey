@@ -1,9 +1,8 @@
-from mecanicas import engine
-
-engine.limparTela()
+import pandas as pd
+import random as rnd
+import os
 
 def menu():
-    
     print('_'*50,'\nEscolha uma das opções','\n1. Jogar', '\n2. Sair')
     escolha = int(input('r: '))
     match escolha:
@@ -15,11 +14,20 @@ def menu():
             print(f'O valor {x} não é valido, por favor escolha de 1 a 2')
             menu()
 
+def palavra_aleatoria():
+    palavras_tabela = pd.Series(['Sao paulo', 'Campinas', 'Osasco', 'Pinheiros', 'Cotia'])
+    return rnd.choice(palavras_tabela)
+
+def limparTela():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+limparTela()
+
 def jogo():
     
-    engine.limparTela()
+    limparTela()
     vidas = 5
-    palavra_escolhida = [engine.palavra_aleatoria()]
+    palavra_escolhida = [palavra_aleatoria()]
     letra_escolhida = []
 
     while vidas > 0:
