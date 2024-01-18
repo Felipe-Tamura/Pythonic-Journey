@@ -21,18 +21,28 @@ def jogo():
     vidas = 5
     palavra_escolhida = [engine.palavra_aleatoria()]
     letra_escolhida = []
-    print(palavra_escolhida)
-        
-    while vidas > 0:
-        print(' ' * 65, f'Vidas: {vidas}')
-        
-        letra_escolhida.append(input('Letra: '))
-        print(letra_escolhida)
 
-        for i in palavra_escolhida.lower():
-            if i in letra_escolhida:
-                print('Acertou')
+    while vidas > 0:
+        print(' ' * 50, f'Vidas: {vidas}')
+        
+        for k in palavra_escolhida[0]:
+            print('_' * len(k.split()), end=' ')
+        
+        letra_escolhida.append(input('\nLetra: '))
+
+        for i in palavra_escolhida:
+            if letra_escolhida[-1] in i:
+                print('\nAcertou')
             else:
+                print('\nVocê errou')
                 vidas -= 1
             
+            if i in letra_escolhida[-1] and vidas > 0:
+                print(palavra_escolhida)
+                print(letra_escolhida)
+                menu()
+    
+        if vidas == 0:
+            print(f'\nA palavra escolhida era: {str(palavra_escolhida)}')
+            break
 menu()
