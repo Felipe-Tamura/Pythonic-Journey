@@ -24,6 +24,7 @@ def menu():
             menu()
 
 def jogo():
+    """ jogando """
     
     limparTela()
     vidas = 5
