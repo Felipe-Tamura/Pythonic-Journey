@@ -34,13 +34,15 @@ def jogo():
         print(' ' * 50, f'Vidas: {vidas}')
         
         for k in palavra_escolhida[0]:
-            print('_' * len(k.split()), end=' ')
-        
+            forca = ['_'] * len(k.split())
+            print(forca)    
+         
         letra_escolhida.append(input('\nLetra: '))
 
         for i in palavra_escolhida:
             if letra_escolhida[-1] in i:
                 print('\nAcertou')
+                forca[i.split().index(letra_escolhida[-1])] = letra_escolhida[-1]
             else:
                 print('\nVocê errou')
                 vidas -= 1
