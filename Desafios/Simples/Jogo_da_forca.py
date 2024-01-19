@@ -30,11 +30,13 @@ def jogo():
     vidas = 5
     palavra_escolhida = palavra_aleatoria()
     letra_escolhida = ['']
-    forca = ['_'] * len(palavra_escolhida if ' ' not in palavra_escolhida else palavra_escolhida.replace(' ', ''))
+    forca = ['_'] * len(palavra_escolhida)
     resultado = ''
     
     for i in range(len(forca)):
-            print(str(forca).join(forca[i]), end=' ' if palavra_escolhida[i] != ' ' else ' * ')
+        if palavra_escolhida[i] == ' ':
+            forca[i] = ' '
+        print(forca[i], end=' * ' if forca[i] == ' ' else ' ')
     
     while vidas > 0:
         print(' ' * 50, f'Vidas: {vidas}')
@@ -54,7 +56,9 @@ def jogo():
             vidas -= 1
 
         for i in range(len(forca)):
-            print(str(forca).join(forca[i]), end=' ' if palavra_escolhida[i] != ' ' else '* ')
+            if palavra_escolhida[i] == ' ':
+                forca[i] = ' '
+            print(forca[i], end=' * ' if forca[i] == ' ' else ' ')
         
         if vidas == 0:
             print(f'\nA palavra escolhida era: {str(palavra_escolhida)}')
