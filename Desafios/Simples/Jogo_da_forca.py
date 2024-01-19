@@ -8,7 +8,7 @@ def limparTela():
 def palavra_aleatoria():
     tabela = pd.DataFrame(
         {
-            'Cidade': ['Sao paulo', 'Campinas', 'Osasco', 'Pinheiro', 'Cotia'],
+            'Cidade': ['Sao paulo', 'Campinas', 'Osasco', 'Pinheiros', 'Cotia'],
             'Comida':['Lasanha', 'Feijoada', 'Macarrão', 'Bife', 'Queijo'],
             'Objeto': ['Lapis', 'Garfo', 'Colher', 'Papel', 'Mesa'],
             'Filme': ['Fuga das galinhas', 'Jhon Wick', 'Harry Potter', 'A casa do Mickey Mouse', 'Matrix'],
@@ -48,34 +48,39 @@ def jogo():
     for i in range(len(forca)):
         if palavra_escolhida[i] == ' ':
             forca[i] = ' '
-        print(forca[i], end='* ' if forca[i] == ' ' else ' ')
+        print(forca[i], end='*' if forca[i] == ' ' else ' ')
     
     #Loop infinito
     while vidas > 0:
         print(' ' * 50, f'Vidas: {vidas}')
-        numero_ocorrencia = int(0)
+        numero_ocorrencia = 0
 
         letra_escolhida.append(input('\nLetra: '))
 
-        if letra_escolhida[-1] in palavra_escolhida.lower() or letra_escolhida[-1] in palavra_escolhida.upper():   
-            for i in palavra_escolhida:
-                if letra_escolhida[-1] in i.lower() or letra_escolhida[-1] in i.upper(): forca[numero_ocorrencia] = i
-                numero_ocorrencia += 1
-                if resultado.join(forca) == palavra_escolhida:
-                    print('Você venceu!!! Parabéns!!!!')
-                    print(f'"{resultado.join(forca)}" era a resposta')
-                    menu()
-                    break
+        if letra_escolhida[-1] in letra_escolhida[:-1]:
+            print(f'A letra "{letra_escolhida.pop()}" já foi')
         else:
-            vidas -= 1
+            if letra_escolhida[-1] in palavra_escolhida.lower() or letra_escolhida[-1] in palavra_escolhida.upper():   
+                for i in palavra_escolhida:
+                    if letra_escolhida[-1] in i.lower() or letra_escolhida[-1] in i.upper(): forca[numero_ocorrencia] = i
+                    numero_ocorrencia += 1
+                    if resultado.join(forca) == palavra_escolhida:
+                        print('Você venceu!!! Parabéns!!!!')
+                        print(f'"{resultado.join(forca)}" era a resposta')
+                        menu()
+                        break
+            else:
+                vidas -= 1
 
         for i in range(len(forca)):
             if palavra_escolhida[i] == ' ':
                 forca[i] = ' '
-            print(forca[i], end='* ' if forca[i] == ' ' else ' ')
+            print(forca[i], end='*' if forca[i] == ' ' else ' ')
+            
+        print('\nLetras que já foram: ', letra_escolhida)
         
         if vidas == 0:
-            print(f'\nA palavra escolhida era: {str(palavra_escolhida)}')
+            print(f'\nQue pena, a palavra escolhida era: {str(palavra_escolhida)}')
             menu()
             break
         
