@@ -6,7 +6,7 @@ def limparTela():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def palavra_aleatoria():
-    palavras_tabela = pd.Series(['Sao paulo', 'Campinas', 'Osasco', 'Pinheiros', 'Cotia'])
+    palavras_tabela = pd.Series(['Sao paulo'])
     return rnd.choice(palavras_tabela)
 
 limparTela()
@@ -27,30 +27,37 @@ def jogo():
     
     limparTela()
     vidas = 5
-    palavra_escolhida = [palavra_aleatoria()]
-    letra_escolhida = []
-
+    palavra_escolhida = palavra_aleatoria()
+    letra_escolhida = ['']
+    forca = ['_'] * len(palavra_escolhida if ' ' not in palavra_escolhida else palavra_escolhida.replace(' ', ''))
+    resultado = ''
+    
+    for i in range(len(forca)):
+            print(str(forca).join(forca[i]), end=' ' if palavra_escolhida[i] != ' ' else ' * ')
+    
     while vidas > 0:
         print(' ' * 50, f'Vidas: {vidas}')
-        
-        for k in palavra_escolhida[0]:
-            print('_' * len(k.split()), end=' ')
-        
+        numero_ocorrencia = int(0)
+
         letra_escolhida.append(input('\nLetra: '))
 
-        for i in palavra_escolhida:
-            if letra_escolhida[-1] in i:
-                print('\nAcertou')
-            else:
-                print('\nVocê errou')
-                vidas -= 1
-            
-            if i in letra_escolhida[-1] and vidas > 0:
-                print(palavra_escolhida)
-                print(letra_escolhida)
-                menu()
-    
+        if letra_escolhida[-1] in palavra_escolhida.lower() or letra_escolhida[-1] in palavra_escolhida.upper():   
+            for i in palavra_escolhida:
+                if letra_escolhida[-1] in i.lower() or letra_escolhida[-1] in i.upper(): forca[numero_ocorrencia] = i
+                numero_ocorrencia += 1
+                if resultado.join(forca) == palavra_escolhida:
+                    print('Você venceu!!! Parabéns!!!!')
+                    menu()
+                    break
+        else:
+            vidas -= 1
+
+        for i in range(len(forca)):
+            print(str(forca).join(forca[i]), end=' ' if palavra_escolhida[i] != ' ' else '* ')
+        
         if vidas == 0:
             print(f'\nA palavra escolhida era: {str(palavra_escolhida)}')
+            menu()
             break
+        
 menu()
