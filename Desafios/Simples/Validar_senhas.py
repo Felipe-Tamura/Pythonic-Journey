@@ -1,32 +1,56 @@
-# - Escreva uma função que valide senhas com base em critérios, como
-# comprimento mínimo, presença de letras maiúsculas e minúsculas,
-# e números.
-# Vamos usar exemplo de senha a seguinte: Gato123
+import os
+import re
 
-senha = 'Gato123'
+#Limpar prompt
+os.system('cls' if os.name == 'nt' else 'clear')
 
 def valida_senha(valor):
+    """ 
+        Validamos se a senha tem as credênciais necessárias
+        
+        - valor: senha para verificação
+    """
     
     if len(valor) >= 8 :
         
-        caracteres_especiais = '[,&^*!!:%$@%#]+'
+        caracteres_especiais = r'[,&^*!!:%$@%#]+'#Reservando caractesres especiais do python com r'string'
         
-        validacao = ({
-            'tem': False,
-            'maiusculo': False,
-            'minusculo': False,
-            'tem_numero': False,
-        })
+        validacao = {
+            'tem_caract': bool(re.search(caracteres_especiais, valor)),#Para procurar um caractere no valor
+            'maiuscula': any(c.isupper() for c in valor),#Iterando no objeto para ver se é maiúsculo
+            'minuscula': any(c.islower() for c in valor),#Iterando no objeto para ver se é minúsculo
+            'numero': any(c.isnumeric() for c in valor)#Iterando no objeto para ver se possui número
+        }
         
-        for i in valor:
-            if i in caracteres_especiais: validacao['tem'] = True
-            if i.isupper(): validacao['maiusculo'] = True
-            if i.islower(): validacao['minusculo'] = True
-            if i.isnumeric(): validacao['tem_numero'] = True
-        
-        
+        mensagem_erro = {
+            'tem_caract': f'A senha precisa conter pelo menos um destes caracteres: {caracteres_especiais}',
+            'maiuscula': 'A senha precisa conter pelo menos uma letra maiúscula',
+            'minuscula': 'A senha precisa conter pelo menos uma letra minúscula',
+            'numero': 'A senha precisa conter pelo menos um número'
+        }
 
+        for crit, condicao in validacao.items():#Duas variáveis que receberão o mesmo valor
+            if not condicao:#Verificando cada condição não verdadeira (2ª Variável)
+                print(f'\nSenha inválida: {mensagem_erro[crit]}')#Alegando o erro (1ª Variável)
+                break
+        else:
+            print('\nSenha válida, pode passar!!!')
+            
     else:
-        print('Tamanho de senha inválida, mínimo 8 caracteres')
+        print('\nTamanho de senha inválida, mínimo 8 caracteres!!!\n')
 
-valida_senha(senha)
+#Loop infinito
+while True:
+    
+    print('_'*50,'\nSelecione uma opção', '\n1. Continuar','\n2. Sair')
+    mensagem = int(input('r: '))
+    print('_'*50)
+    
+    match mensagem:
+        case 1:
+            senha = input('Senha: ')
+            valida_senha(senha)  
+        case 2:
+            break
+        case _ as x:
+            print(f'Valor {x} inválido, apenas 1 ou 2')
