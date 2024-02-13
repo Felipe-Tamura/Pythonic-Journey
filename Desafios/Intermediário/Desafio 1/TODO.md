@@ -3,6 +3,9 @@
     editar e excluir contatos. Use estruturas de dados adequadas para 
     armazenar as informações.
 
+##### Visualização do Banco de Dados
+- Visualizar -> UI
+
 ### Banco de Dados
 - Arquivo CSV
 
@@ -10,9 +13,6 @@
 - Adicionar
 - Editar
 - Excluir
-
-##### Visualização do Banco de Dados
-- Visualizar -> UI
 
 <p>
 Vamos adicionar um banco de dados que puxa dados de um arquivo csv;
