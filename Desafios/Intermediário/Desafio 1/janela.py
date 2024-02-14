@@ -1,11 +1,7 @@
 from dataclasses import dataclass
 import tkinter as tk
 import os
-import bd
-
-
-dados = bd.banco_de_dados()
-listagem = dados.arquivo
+import pandas as pd
 
 @dataclass
 class Janela:
@@ -18,8 +14,8 @@ class Janela:
     lb = tk.Listbox(janela, height=5)
     #Fazer um loop aqui para adicionar itens da listagem na listbox
     #_*50
-    lb.insert(0, "teste")
-    lb.insert(1, "teste2")
+    
+     
     lb.grid()
     
     def tela(self):
