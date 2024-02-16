@@ -34,9 +34,11 @@ class banco_de_dados:
                         'Email': email
                     }
                 )
-
-                tab_contato.loc[len(tab_contato)] = dado
-                tab_contato.to_csv(cls.arquivo, index=False)
+                if numero in tab_contato.Numero:
+                    print('Esta conta já existe')
+                else:
+                    tab_contato.loc[len(tab_contato)] = dado
+                    tab_contato.to_csv(cls.arquivo, index=False)
 
         except FileNotFoundError:
             print(f'Arquivo \'{cls.arquivo}\' não encontrado')
