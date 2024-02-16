@@ -21,6 +21,6 @@ if int(p) < 15:
 
 new_row = {'Jogos':j, 'Placar': p, 'Mínimo da Temporada': mint}
 
-df = df.append(new_row, ignore_index=True)
+df.loc[len(df)] = new_row
 
 print(df)

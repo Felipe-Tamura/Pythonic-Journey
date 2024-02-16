@@ -35,10 +35,8 @@ class banco_de_dados:
                     }
                 )
 
-                if nome in tab_contato['Nome']:
-                    print('Não')
-                else:
-                    pass          
+                tab_contato.loc[len(tab_contato)] = dado
+                tab_contato.to_csv(cls.arquivo, index=False)
 
         except FileNotFoundError:
             print(f'Arquivo \'{cls.arquivo}\' não encontrado')
