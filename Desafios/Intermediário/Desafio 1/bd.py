@@ -135,6 +135,18 @@ class banco_de_dados:
             uma propriedade, sem abrir os parênteses
         """
         os.system('cls' if os.name == 'nt' else 'clear')
+    
+    def editar(
+        self,
+        nome: str | None,
+        numero:str | None,
+        email: str | None
+    ):
+        contato = pd.read_csv(self.arquivo)
+
+        print(contato) 
+        
+        #contato.to_csv(self.arquivo, index=False)
 
 if __name__ == '__main__':
 
@@ -143,3 +155,4 @@ if __name__ == '__main__':
     contato3 = bd.adicionar('Felipe', '11 954432895', 'felipe@gmail.com')
     contato2 = bd.adicionar('Felipe', '11 912345678', 'felipe@gmail.com')
     bd.excluir('11 912345678')
+    bd.editar(nome='Arin', numero='11 98745321', email='arin@gmail.com')
