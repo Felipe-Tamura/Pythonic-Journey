@@ -3,7 +3,7 @@ import pandas as pd
 import csv
 import re
 import os
-
+import time
 
 @dataclass
 class banco_de_dados:
@@ -35,9 +35,18 @@ class banco_de_dados:
                         'Email': email
                     }
                 )
-                for lista in tab_contato.Numero:
-                    if lista == numero:
-                        print(f'Número \'{numero}\' já adicionado')
+
+                for lista in (tab_contato.Nome, tab_contato.Numero, tab_contato.Email):
+                    if lista.empty:
+                        continue
+                    if lista[0] == numero:
+                        print(f'Número {numero} já adicionado, tente outro!')
+                        break
+                    elif lista[0] == nome:
+                        print(f'Nome {nome} já adicionado, tente outro!')
+                        break
+                    elif lista[0] == email:
+                        print(f'Email {email} já adicionado, tente outro!')
                         break
                 else:
                     tab_contato.loc[len(tab_contato)] = dado
@@ -48,9 +57,6 @@ class banco_de_dados:
         except Exception as e:
             print(f'Erro inesperado: {e}')
 
-    def editar(self, dado_para_editar):
-        pass
-    
     def excluir(self, dado_para_excluir):
         """ 
             Excluindo um contato da lista de contatos
@@ -139,20 +145,30 @@ class banco_de_dados:
     def editar(
         self,
         nome: str | None,
+        paraNome: str | None,
         numero:str | None,
-        email: str | None
+        paraNumero: str | None,
+        email: str | None,
+        paraEmail: str | None
     ):
         contato = pd.read_csv(self.arquivo)
 
-        print(contato) 
+        if nome is not None:
+            contato.loc[contato['Nome'] == nome, 'Nome'] = paraNome 
+        if numero is not None:
+            contato.loc[contato['Numero'] == numero, 'Numero'] = paraNumero
+        if email is not None:
+            contato.loc[contato['Email'] == email, 'Email'] = paraEmail
         
-        #contato.to_csv(self.arquivo, index=False)
+        contato.to_csv(self.arquivo, index=False)
 
 if __name__ == '__main__':
 
     bd = banco_de_dados()
     bd.limpar_tela
     contato3 = bd.adicionar('Felipe', '11 954432895', 'felipe@gmail.com')
-    contato2 = bd.adicionar('Felipe', '11 912345678', 'felipe@gmail.com')
+    contato2 = bd.adicionar('Arin', '11 912345678', 'arin@gmail.com')
+    time.sleep(5) # Para teste de depuração, verificando se foi
+                    # adicionado ou não para depois excluir o contato
     bd.excluir('11 912345678')
-    bd.editar(nome='Arin', numero='11 98745321', email='arin@gmail.com')
+    bd.editar(nome='Arin',paraNome='FelipeTamura', numero='11 98745321', paraNumero='11 9123487958', email='arin@gmail.com', paraEmail='arin.ta@gmail.com')
