@@ -2,26 +2,45 @@ from dataclasses import dataclass
 import tkinter as tk
 import os
 import pandas as pd
-
-@dataclass
 class Janela:
+    """ 
+        Criando uma janela onde ficará os contatos, com botões de:
+            - Adicionar
+            - Excluir
+            - Editar
+    """
     
-    #Criando a janela
-    janela = tk.Tk()
-    janela.configure(padx=8, pady=10)
-    janela.title("Teste")
+    def __init__(self):
+        # Criando a janela
+        self.root = tk.Tk()
+        self.root.title("Contatos")
+        self.root.geometry("300x300")
 
-    lb = tk.Listbox(janela, height=5)
-    #Fazer um loop aqui para adicionar itens da listagem na listbox
-    #_*50
+        # Adicioanndo um texto na janela
+        self.label = tk.Label(self.root, text="Olá, Tkinter!")
+        self.label.pack()
+        
+        # Criando um botão   
+        self.botao = tk.Button(self.root, text="Clique me!", command=self.clique_botao)
+        self.botao.pack()
     
-     
-    lb.grid()
-    
+    def clique_botao(self):
+        """ 
+            Criando uma referência para o botão
+        """
+        self.label.config(text="Botão clicado!")
+
     def tela(self):
-        self.janela.mainloop()
+        """ 
+            Iniciando o loop do TkInter para que ele inicialize uma janela
+        """
+        self.root.mainloop()
+    
     
     def limpar_tela(self):
+        """ 
+            Limpando o console
+        """
         os.system('cls' if os.name == 'nt' else 'clear')
 
 if __name__ == "__main__":
