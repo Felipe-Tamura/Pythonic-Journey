@@ -88,6 +88,8 @@ class banco_de_dados:
                     deseja excluir
         """
         lista = []
+        # Este indice é referente a coluna, no caso estamos selecionando
+        # a coluna 'Numero' para apgar direto pelo número
         apagar_indice = 1
         
         try:
@@ -97,7 +99,7 @@ class banco_de_dados:
                 # Iterando sobre o arquivo
                 for listagem in leitor:
                     # Verificando se o que o usuário quer excluir é
-                    # diferente de cada linha do
+                    # diferente de cada linha do arquivo
                     if listagem[apagar_indice] != dado_para_excluir:
                         lista.append(listagem)
             
@@ -208,4 +210,3 @@ if __name__ == '__main__':
                     # adicionado ou não para depois excluir o contato
     #bd.excluir('11 912345678')
     bd.editar(nome='Arin',paraNome='FelipeTamura', numero='11 98745321', paraNumero='11 9123487958', email='arin@gmail.com', paraEmail='arin.ta@gmail.com')
-    bd.editar(nome='Felipe', paraNome='FelipePereira')

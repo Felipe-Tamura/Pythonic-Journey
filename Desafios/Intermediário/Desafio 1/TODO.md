@@ -13,3 +13,10 @@
     - Adicionar
     - Editar
     - Excluir
+
+##### NOTAS #####
+
+ - Quando criarmos os botões para realizar as alteração, adicionar, e exclusão nós iremos garantir
+  que os dados estejam direto no formulário que iremos criar e só iremos alterar direto no formulário
+  assim sempre irá sobreescrever mesmo estando da mesma forma
+  
