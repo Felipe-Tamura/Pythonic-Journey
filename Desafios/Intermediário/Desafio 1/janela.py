@@ -29,7 +29,7 @@ class Janela(tk.Tk):
         self.cena_direita.grid(row = 0, column = 1, padx = 5)
 
         # Criando um frame (cena dentro da janela) para a esquerda
-        self.cena_esquerda = tk.Frame(self, bg="#954535")
+        self.cena_esquerda = tk.Frame(self, bg="cyan", padx = 5, pady = 5)
         self.cena_esquerda.grid(row = 0, column = 0, padx = 5)
         
         # Garantindo que o nome do cabeçalho das colunas sejam a primeira
@@ -53,7 +53,8 @@ class Janela(tk.Tk):
             background = "#D27D2D",
             foreground = "#7B3F00",
             activebackground = "#E5AA70", # referente a quando clicamos no botão
-            activeforeground = "#7B3F00" # referente a quando clicamos no botão
+            activeforeground = "#7B3F00", # referente a quando clicamos no botão
+            pady = 5
         )
         bt_add.grid(row = 0, column = 0, sticky=tk.S)
 
@@ -67,7 +68,8 @@ class Janela(tk.Tk):
             background = "#D27D2D",
             foreground = "#7B3F00",
             activebackground = "#E5AA70", # referente a quando clicamos no botão
-            activeforeground = "#7B3F00" # referente a quando clicamos no botão
+            activeforeground = "#7B3F00", # referente a quando clicamos no botão
+            pady = 5
         )
         bt_del.grid(row = 1, column = 0)
 
@@ -81,7 +83,8 @@ class Janela(tk.Tk):
             background = "#D27D2D",
             foreground = "#7B3F00",
             activebackground = "#E5AA70", # referente a quando clicamos no botão
-            activeforeground = "#7B3F00" # referente a quando clicamos no botão
+            activeforeground = "#7B3F00", # referente a quando clicamos no botão
+            pady = 5
         )
         bt_edit.grid(row = 2, column = 0, sticky=tk.N)
         
