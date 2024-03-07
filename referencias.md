@@ -1,5 +1,5 @@
 <a href="https://algoritmosempython.com.br/cursos/programacao-python/strings/" target="_blank" rel="nofollow">Tratamento de string</a> </br>
 <a href="https://www.pythonforbeginners.com/basics/list-comprehensions-in-python" target="_blank" rel="nofollow">Compreensão de lista em Python</a> </br>
-<a href="https://awari.com.br/lista-de-substituicao-em-python-aprenda-a-substituir-elementos-em-uma-lista/?utm_source=blog&utm_campaign=projeto+blog&utm_medium=Lista%20de%20Substituição%20em%20Python:%20Aprenda%20a%20Substituir%20Elementos%20em%20uma%20Lista#:~:text=Primeiramente%2C%20é%20necessário%20identificar%20o,os%20valores%20adequados%20como%20argumentos." target="_blank" rel="nofollow">Tratamentos em uma lista</a>
-<a href="https://pythonassets.com/posts/treeview-in-tk-tkinter/" target = "_blank" rel = "nofollow">Usando Treeview do TkInter</a>
-<a href="https://www.pythonguis.com/faq/pack-place-and-grid-in-tkinter/" target="_blank" rel="nofollow">Layout de Pack, Place e Grid</a>
+<a href="https://awari.com.br/lista-de-substituicao-em-python-aprenda-a-substituir-elementos-em-uma-lista/?utm_source=blog&utm_campaign=projeto+blog&utm_medium=Lista%20de%20Substituição%20em%20Python:%20Aprenda%20a%20Substituir%20Elementos%20em%20uma%20Lista#:~:text=Primeiramente%2C%20é%20necessário%20identificar%20o,os%20valores%20adequados%20como%20argumentos." target="_blank" rel="nofollow">Tratamentos em uma lista</a> </br>
+<a href="https://pythonassets.com/posts/treeview-in-tk-tkinter/" target = "_blank" rel = "nofollow">Usando Treeview do TkInter</a> </br>
+<a href="https://www.pythonguis.com/faq/pack-place-and-grid-in-tkinter/" target="_blank" rel="nofollow">Layout de Pack, Place e Grid</a> </br>

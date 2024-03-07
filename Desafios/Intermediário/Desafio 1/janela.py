@@ -1,7 +1,11 @@
 import csv
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 import os
+import cores
+import bd
+
 
 class Janela(tk.Tk):
     """ 
@@ -22,14 +26,14 @@ class Janela(tk.Tk):
         self.title("Contatos")
         
         # Colocando um espaçamento de 10 para cada canto da janela
-        self.configure(padx=10, pady=10, background="#6F4E37")
+        self.configure(padx=10, pady=10, background=cores.fundo_janela)
 
         # Criando um frame (cena dentro da janela) para a direita
-        self.cena_direita = tk.Frame(self, bg="#954535")
+        self.cena_direita = tk.Frame(self, bg=cores.fundo_cena)
         self.cena_direita.grid(row = 0, column = 1, padx = 5)
 
         # Criando um frame (cena dentro da janela) para a esquerda
-        self.cena_esquerda = tk.Frame(self, bg="cyan", padx = 5, pady = 5)
+        self.cena_esquerda = tk.Frame(self, bg=cores.fundo_cena, padx = 5, pady = 5)
         self.cena_esquerda.grid(row = 0, column = 0, padx = 5)
         
         # Garantindo que o nome do cabeçalho das colunas sejam a primeira
@@ -50,13 +54,12 @@ class Janela(tk.Tk):
             command = self.botao_adicionar,
             width = 10,
             height = 2,
-            background = "#D27D2D",
-            foreground = "#7B3F00",
-            activebackground = "#E5AA70", # referente a quando clicamos no botão
-            activeforeground = "#7B3F00", # referente a quando clicamos no botão
-            pady = 5
+            background = cores.fundo_botao,
+            foreground = cores.fonte_botao,
+            activebackground = cores.fundo_botao_click, # referente a quando clicamos no botão
+            activeforeground = cores.fonte_botao_click # referente a quando clicamos no botão
         )
-        bt_add.grid(row = 0, column = 0, sticky=tk.S)
+        bt_add.grid(row = 0, column = 0, sticky=tk.S, pady = 5)
 
         # Criando um botão para excluir contato selecionado
         bt_del = tk.Button(
@@ -65,13 +68,12 @@ class Janela(tk.Tk):
             command = self.botao_excluir,
             width = 10,
             height = 2,
-            background = "#D27D2D",
-            foreground = "#7B3F00",
-            activebackground = "#E5AA70", # referente a quando clicamos no botão
-            activeforeground = "#7B3F00", # referente a quando clicamos no botão
-            pady = 5
+            background = cores.fundo_botao,
+            foreground = cores.fonte_botao,
+            activebackground = cores.fundo_botao_click, # Referente a quando clicamos no botão
+            activeforeground = cores.fonte_botao_click # Referente a quando clicamos no botão
         )
-        bt_del.grid(row = 1, column = 0)
+        bt_del.grid(row = 1, column = 0, pady = 5)
 
         # Criando um botão para editar o contato selecionado
         bt_edit = tk.Button(
@@ -80,13 +82,12 @@ class Janela(tk.Tk):
             command = self.botao_editar,
             width = 10,
             height = 2,
-            background = "#D27D2D",
-            foreground = "#7B3F00",
-            activebackground = "#E5AA70", # referente a quando clicamos no botão
-            activeforeground = "#7B3F00", # referente a quando clicamos no botão
-            pady = 5
+            background = cores.fundo_botao,
+            foreground = cores.fonte_botao,
+            activebackground = cores.fundo_botao_click, # Referente a quando clicamos no botão
+            activeforeground = cores.fonte_botao_click # Referente a quando clicamos no botão
         )
-        bt_edit.grid(row = 2, column = 0, sticky=tk.N)
+        bt_edit.grid(row = 2, column = 0, sticky=tk.N, pady = 5)
         
 
     def exibir_dados_lista(self):
@@ -100,7 +101,7 @@ class Janela(tk.Tk):
         # Limpando lista antiga
         for row in self.treeview.get_children():
             self.treeview.delete(row)
-                
+        
         # Criando uma função para adicionar nome a coluna
         adicionar_nome = lambda coluna: self.treeview.heading(coluna, text=coluna)
 
@@ -139,25 +140,29 @@ class Janela(tk.Tk):
             bd onde adiciona definitivo o contato no arquivo.
         """
         # Criando uma nova janela de formuário
-        forms = tk.Toplevel(self, padx = 10, pady = 10)
+        forms = tk.Toplevel(self, padx = 10, pady = 10, bg = cores.fundo_janela)
         # Colocando um titulo
         forms.title("Adicionar Novo Contato")
-        # Ajustando o tamanho da janela de formulário
-        forms.geometry("300x100")
+
+        # Criando 2 frames para o formulário
+        frame_forms_cima = tk.Frame(forms, bg = cores.fundo_cena, pady = 5, padx = 5)
+        frame_forms_baixo = tk.Frame(forms, bg = cores.fundo_cena, pady = 5, padx = 5)
+        frame_forms_cima.grid(row = 0, column = 0, pady = 5, padx = 5)
+        frame_forms_baixo.grid(row = 1, column = 0, pady = 5, padx = 5)
 
         # Criando 3 rotulos com informação sobre o que colocar na entrada
-        rl_nome = tk.Label(forms, text="Nome:")
-        rl_numero = tk.Label(forms, text="Número:")
-        rl_email = tk.Label(forms, text="Email:")
+        rl_nome = tk.Label(frame_forms_cima, text="Nome:", bg = cores.fundo_cena, foreground = cores.fonte_rotulo)
+        rl_numero = tk.Label(frame_forms_cima, text="Número:", bg = cores.fundo_cena, foreground = cores.fonte_rotulo)
+        rl_email = tk.Label(frame_forms_cima, text="Email:", bg = cores.fundo_cena, foreground = cores.fonte_rotulo)
         # Adicionando na grade
         rl_nome.grid(row = 0, column = 0, sticky = tk.E)
         rl_numero.grid(row = 1, column = 0, sticky = tk.E)
         rl_email.grid(row = 2, column = 0, sticky = tk.E)
 
         # Criando 3 entradas para o formulário
-        ent_nome = tk.Entry(forms, width = 30)
-        ent_numero = tk.Entry(forms, width = 30)
-        ent_email = tk.Entry(forms, width = 30)
+        ent_nome = tk.Entry(frame_forms_cima, width = 30)
+        ent_numero = tk.Entry(frame_forms_cima, width = 30)
+        ent_email = tk.Entry(frame_forms_cima, width = 30)
         # Adicionando na grade
         ent_nome.grid(row = 0, column = 1, columnspan = 2)
         ent_numero.grid(row = 1, column = 1, columnspan = 2)
@@ -166,11 +171,49 @@ class Janela(tk.Tk):
         # Função para fechar a janela do formulário
         def forms_cancel(): forms.destroy()
 
+        # Função para adicionar o contato novo no arquivo
+        def forms_add():
+            preenchimento = [ent_nome.get(), ent_numero.get(), ent_email.get()]
+
+            vazio = lambda valor: valor != ''
+            verificar = list(filter(vazio, preenchimento))
+
+            if len(verificar) == 3:
+                banco_dados = bd.banco_de_dados()
+                banco_dados.adicionar(
+                    nome = ent_nome.get(),
+                    numero = ent_numero.get(),
+                    email = ent_email.get()
+                )
+                forms.destroy()
+                self.exibir_dados_lista()
+            else:
+                messagebox.showinfo(title = "AVISO!", message = "Favor preencher todos os campos")
+            
+
         # Criando 2 botões, um de cancelar e outro de adicionar
-        bt_forms_add = tk.Button(forms, text="Criar Contato")
-        bt_forms_cancel = tk.Button(forms, text="Cancelar", command=forms_cancel)
-        bt_forms_add.grid(row = 3, column = 1, sticky = tk.E)
-        bt_forms_cancel.grid(row = 3, column = 2, sticky = tk.W)
+        bt_forms_add = tk.Button(
+            frame_forms_baixo,
+            text="Criar Contato",
+            command = forms_add,
+            width = 10,
+            background = cores.fundo_botao,
+            foreground = cores.fonte_botao,
+            activebackground = cores.fundo_botao_click, # Referente a quando clicamos no botão
+            activeforeground = cores.fonte_botao_click # Referente a quando clicamos no botão
+        )
+        bt_forms_cancel = tk.Button(
+            frame_forms_baixo,
+            text="Cancelar",
+            command=forms_cancel,
+            width = 10,
+            background = cores.fundo_botao,
+            foreground = cores.fonte_botao,
+            activebackground = cores.fundo_botao_click, # Referente a quando clicamos no botão
+            activeforeground = cores.fonte_botao_click# Referente a quando clicamos no botão
+        )
+        bt_forms_add.grid(row = 3, column = 1, sticky = tk.E, padx = 2)
+        bt_forms_cancel.grid(row = 3, column = 2, sticky = tk.W, padx = 2)
 
         
         # Iniciando a janela
