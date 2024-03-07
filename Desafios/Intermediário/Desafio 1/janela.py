@@ -141,6 +141,8 @@ class Janela(tk.Tk):
         """
         # Criando uma nova janela de formuário
         forms = tk.Toplevel(self, padx = 10, pady = 10, bg = cores.fundo_janela)
+        # Focando na janela do formulário
+        forms.transient(self)
         # Colocando um titulo
         forms.title("Adicionar Novo Contato")
 
@@ -171,24 +173,39 @@ class Janela(tk.Tk):
         # Função para fechar a janela do formulário
         def forms_cancel(): forms.destroy()
 
-        # Função para adicionar o contato novo no arquivo
         def forms_add():
-            
+            """ 
+                Adicionando o contato na lista com base nas informações
+                do formulário
+            """
+            # Colocando os dados do formulário em uma lista
             preenchimento = [ent_nome.get(), ent_numero.get(), ent_email.get()]
 
+            # Criando uma função para verificar se os itens da lista
+            # estão preenchidos
             vazio = lambda valor: valor != ''
+
+            # Fazendo uma iteração nos itens da lista usando a função "vazio"
             verificar = list(filter(vazio, preenchimento))
 
-            if len(verificar) == 3:
+            if len(verificar) == 3: # Caso o formulário estiver preenchido
+
+                # Instanciando o bd
                 banco_dados = bd.banco_de_dados()
+
+                # Adicionando cada item do formulário no arquivo
                 banco_dados.adicionar(
                     nome = ent_nome.get(),
                     numero = ent_numero.get(),
                     email = ent_email.get()
                 )
-                forms.destroy()
-                self.ler_dado()
+
+                # Atualizando a janela
                 self.exibir_dados_lista()
+
+                # Fechando o formulário
+                forms.destroy()
+                
             else:
                 messagebox.showinfo(title = "AVISO!", message = "Favor preencher todos os campos")
             
@@ -218,11 +235,19 @@ class Janela(tk.Tk):
         bt_forms_cancel.grid(row = 3, column = 2, sticky = tk.W, padx = 2)
 
         
-        # Iniciando a janela
+        # Iniciando a janela do formulário
         forms.mainloop()
     
-    def botao_editar():
-        pass
+    def botao_editar(self):
+        """ 
+            Por enquanto usando para depuração
+        """
+        selecao = self.treeview.selection()[0]
+        filho = self.treeview.get_children()[0]
+        print(
+            selecao,
+            filho
+        )
     
     def botao_excluir(self):
         """ 
@@ -230,13 +255,12 @@ class Janela(tk.Tk):
             contato da lista
         """
         try:
-            
             # Instanciando a classe de banco de dados
             banco_dados = bd.banco_de_dados()
             
             # Pegando o ID do item selecionado na lista
             selecao = self.treeview.selection()[0]
-            
+            print(selecao)
             # Excluindo o item do arquivo usando a função do banco de dados
             banco_dados.excluir(self.ler_dado()[1][int(selecao[3]) - 1][1])
             
@@ -248,10 +272,8 @@ class Janela(tk.Tk):
 
         except Exception as x:
 
-            if x == Exception("tuple index out of range"):
-                print("Selecione um contato")
-            else:
-                print(f"Erro inesperado: {x}")
+            print(selecao)
+            print(f"Erro inesperado: {x}")
 
     @property
     def limpar_console(self):
