@@ -41,7 +41,7 @@ class Janela(tk.Tk):
         dados = self.ler_dado()
         
         # Criando colunas
-        self.treeview = ttk.Treeview(self.cena_direita, columns=(dados[0]))
+        self.treeview = ttk.Treeview(self.cena_direita, columns=(dados[0]), height = 12, show="headings")
         self.treeview.grid(row = 0, column = 1, columnspan = 4, rowspan = 4, pady=5, padx=5)
         
         # Chamando a função para adicionar tudo nas colunas
@@ -88,7 +88,6 @@ class Janela(tk.Tk):
             activeforeground = cores.fonte_botao_click # Referente a quando clicamos no botão
         )
         bt_edit.grid(row = 2, column = 0, sticky=tk.N, pady = 5)
-        
 
     def exibir_dados_lista(self):
         """ 
@@ -96,7 +95,6 @@ class Janela(tk.Tk):
         """
         # Instanciando os dados
         dados = self.ler_dado()
-        index = range(1, len(dados[0]) + 1)
 
         # Limpando lista antiga
         for row in self.treeview.get_children():
@@ -104,15 +102,17 @@ class Janela(tk.Tk):
         
         # Criando uma função para adicionar nome a coluna
         adicionar_nome = lambda coluna: self.treeview.heading(coluna, text=coluna)
+        tamanho_coluna = lambda width_coluna: self.treeview.column(width_coluna, width = 150)
 
         # Iterando/mapeando lista de colunas e adicionando nome da coluna
         list(map(adicionar_nome, dados[0]))
+        list(map(tamanho_coluna, dados[0]))
 
         # Criando uma função para adicionar novos itens a lista
-        adicionar = lambda indice, item: self.treeview.insert('', tk.END, text=indice, values=item)
+        adicionar = lambda item: self.treeview.insert('', tk.END, values=item)
          
         # Iterando/Mapeando lista de dados e adicionando itens
-        list(map(adicionar, index, dados[1]))
+        list(map(adicionar, dados[1]))
 
     def ler_dado(self):
         """ 
@@ -173,6 +173,7 @@ class Janela(tk.Tk):
 
         # Função para adicionar o contato novo no arquivo
         def forms_add():
+            
             preenchimento = [ent_nome.get(), ent_numero.get(), ent_email.get()]
 
             vazio = lambda valor: valor != ''
@@ -186,6 +187,7 @@ class Janela(tk.Tk):
                     email = ent_email.get()
                 )
                 forms.destroy()
+                self.ler_dado()
                 self.exibir_dados_lista()
             else:
                 messagebox.showinfo(title = "AVISO!", message = "Favor preencher todos os campos")
@@ -222,8 +224,34 @@ class Janela(tk.Tk):
     def botao_editar():
         pass
     
-    def botao_excluir():
-        pass
+    def botao_excluir(self):
+        """ 
+            Esta função deleta o contato do arquivo ao selecionar o
+            contato da lista
+        """
+        try:
+            
+            # Instanciando a classe de banco de dados
+            banco_dados = bd.banco_de_dados()
+            
+            # Pegando o ID do item selecionado na lista
+            selecao = self.treeview.selection()[0]
+            
+            # Excluindo o item do arquivo usando a função do banco de dados
+            banco_dados.excluir(self.ler_dado()[1][int(selecao[3]) - 1][1])
+            
+            # 1. Aqui estamos selecionando o segundo item da tupla: [1]
+            # 2. Selecionando o item da lista dentro da tupla selecionada
+            # logo de primeira: [int(selecao[3]) - 1] (Colocamos o -1
+            # pois esta parte estamos retornando um número fora da lista)
+            # 3. Por fim selecionamos a coluna do número para exclui-lo: [1]
+
+        except Exception as x:
+
+            if x == Exception("tuple index out of range"):
+                print("Selecione um contato")
+            else:
+                print(f"Erro inesperado: {x}")
 
     @property
     def limpar_console(self):
