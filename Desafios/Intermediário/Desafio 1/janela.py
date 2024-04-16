@@ -109,6 +109,32 @@ class Janela(tk.Tk):
             3 caixas de entrada. O botão irá chamar a função do arquivo
             bd onde adiciona definitivo o contato no arquivo.
         """
+    
+    def botao_editar(self):
+        """ 
+            Por enquanto usando para depuração
+        """
+        dados = self.__ler_dado()
+        print(dados)
+    
+    def botao_excluir(self):
+        """ 
+            Esta função deleta o contato do arquivo ao selecionar o
+            contato da lista
+        """
+
+    @property
+    def limpar_console(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+    
+    def iniciar_janela(self):
+        self.mainloop()
+        
+class Janela_adicionar(Janela):
+    
+    def __init__(self):
+        # Chamando todos os atributos da classe pai
+        super().__init__()
         # Criando uma nova janela de formuário
         forms = tk.Toplevel(
             self,
@@ -200,6 +226,9 @@ class Janela(tk.Tk):
                     email = ent_email.get()
                 )
                 
+                #self.destroy()
+                self.caixa_lista
+                
             else:
                 messagebox.showinfo(title = "AVISO!", message = "Favor preencher todos os campos")
             
@@ -231,26 +260,6 @@ class Janela(tk.Tk):
         
         # Iniciando a janela do formulário
         forms.mainloop()
-    
-    def botao_editar(self):
-        """ 
-            Por enquanto usando para depuração
-        """
-        dados = self.__ler_dado()
-        print(dados)
-    
-    def botao_excluir(self):
-        """ 
-            Esta função deleta o contato do arquivo ao selecionar o
-            contato da lista
-        """
-
-    @property
-    def limpar_console(self):
-        os.system('cls' if os.name == 'nt' else 'clear')
-    
-    def iniciar_janela(self):
-        self.mainloop()
 
 if __name__ == "__main__":
     janela1 = Janela()
